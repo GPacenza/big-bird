@@ -1,4 +1,0 @@
-include_rules = [
-  "+components/saved_tab_groups/messaging",
-  "+ios/chrome/browser/data_sharing/model",
-]
