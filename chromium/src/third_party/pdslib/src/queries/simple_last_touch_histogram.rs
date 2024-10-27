@@ -28,6 +28,7 @@ impl ReportRequest for SimpleLastTouchHistograRequest {
         range.collect()
     }
 
+    #[allow(unused_variables)]
     fn compute_report(
         &self,
         all_epoch_events: &Vec<Self::EpochEvents>,
@@ -38,6 +39,7 @@ impl ReportRequest for SimpleLastTouchHistograRequest {
         }
     }
 
+    #[allow(unused_variables)]
     fn compute_individual_budget(
         &self,
         epoch_events: &Self::EpochEvents,

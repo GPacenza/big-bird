@@ -3,8 +3,13 @@ pub mod events;
 pub mod pds;
 pub mod queries;
 
-fn add(a: u32, b: u32) -> u32 {
+pub fn add(a: u32, b: u32) -> u32 {
     a + b
 }
 
-uniffi::include_scaffolding!("example");
+#[cxx::bridge]
+mod ffi {
+    extern "Rust" {
+        fn add(a: u32, b: u32) -> u32;
+    }
+}

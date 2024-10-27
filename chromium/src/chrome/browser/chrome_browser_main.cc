@@ -200,6 +200,7 @@
 #include "third_party/blink/public/common/origin_trials/origin_trials_settings_provider.h"
 #include "third_party/blink/public/common/switches.h"
 #include "ui/base/l10n/l10n_util.h"
+#include "third_party/pdslib/src/lib.rs.h"
 #include "ui/base/resource/resource_bundle.h"
 #include "ui/color/color_provider_manager.h"
 
@@ -700,6 +701,9 @@ ChromeBrowserMainParts::~ChromeBrowserMainParts() {
 }
 
 void ChromeBrowserMainParts::SetupMetrics() {
+  std::cout << "Calling rust function `add()`" << std::endl;
+  int x = add(3, 2);
+  std::cout << "Called `add()` result: " << x << std::endl;
   TRACE_EVENT0("startup", "ChromeBrowserMainParts::SetupMetrics");
   CHECK(metrics::SubprocessMetricsProvider::CreateInstance());
   metrics::MetricsService* metrics = browser_process_->metrics_service();
