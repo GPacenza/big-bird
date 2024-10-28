@@ -1,0 +1,24 @@
+import("//build/rust/rust_static_library.gni")
+
+rust_static_library("pds_lib_ffi") {
+    allow_unsafe = true  # Needed for FFI that underpins the `cxx` crate.
+    crate_root = "//third_party/pdslib/src/lib.rs"
+    sources = [
+      "//third_party/pdslib/src/lib.rs",
+      "//third_party/pdslib/src/queries/traits.rs",
+      "//third_party/pdslib/src/events/simple_events.rs",
+      "//third_party/pdslib/src/pds/mod.rs",
+      "//third_party/pdslib/src/pds/implem.rs",
+      "//third_party/pdslib/src/budget/pure_dp_filter.rs",
+      "//third_party/pdslib/src/queries/mod.rs",
+      "//third_party/pdslib/src/events/traits.rs",
+      "//third_party/pdslib/src/budget/mod.rs",
+      "//third_party/pdslib/src/budget/traits.rs",
+      "//third_party/pdslib/src/pds/traits.rs",
+      "//third_party/pdslib/src/queries/simple_last_touch_histogram.rs",
+      "//third_party/pdslib/src/budget/hashmap_filter_storage.rs",
+      "//third_party/pdslib/src/events/mod.rs",
+    ]
+    cxx_bindings = [ "//third_party/pdslib/src/lib.rs" ]
+    deps = []
+  }

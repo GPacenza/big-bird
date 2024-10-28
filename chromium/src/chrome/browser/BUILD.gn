@@ -140,29 +140,6 @@ source_set("global_features") {
   public_deps = [ "//base" ]
 }
 
-rust_static_library("pds_lib_ffi") {
-    allow_unsafe = true  # Needed for FFI that underpins the `cxx` crate.
-    crate_root = "//third_party/pdslib/src/lib.rs"
-    sources = [
-      "//third_party/pdslib/src/lib.rs",
-      "//third_party/pdslib/src/queries/traits.rs",
-      "//third_party/pdslib/src/events/simple_events.rs",
-      "//third_party/pdslib/src/pds/mod.rs",
-      "//third_party/pdslib/src/pds/implem.rs",
-      "//third_party/pdslib/src/budget/pure_dp_filter.rs",
-      "//third_party/pdslib/src/queries/mod.rs",
-      "//third_party/pdslib/src/events/traits.rs",
-      "//third_party/pdslib/src/budget/mod.rs",
-      "//third_party/pdslib/src/budget/traits.rs",
-      "//third_party/pdslib/src/pds/traits.rs",
-      "//third_party/pdslib/src/queries/simple_last_touch_histogram.rs",
-      "//third_party/pdslib/src/budget/hashmap_filter_storage.rs",
-      "//third_party/pdslib/src/events/mod.rs",
-    ]
-    cxx_bindings = [ "//third_party/pdslib/src/lib.rs" ]
-    deps = []
-  }
-
 # Use a static library here because many test binaries depend on this but don't
 # require many files from it. This makes linking more efficient.
 static_library("browser") {
@@ -1866,7 +1843,6 @@ static_library("browser") {
     ":dev_ui_browser_resources_grit",
     ":expired_flags_list",
     ":font_pref",
-    ":pds_lib_ffi",
     ":global_features",
     ":k_anonymity_storage_proto",
     ":lcp_critical_path_predictor_proto",
@@ -2495,6 +2471,7 @@ static_library("browser") {
     "//third_party/libxml:xml_writer",
     "//third_party/libyuv",
     "//third_party/metrics_proto",
+    "//third_party/pdslib:pds_lib_ffi",
     "//third_party/re2",
     "//third_party/webrtc_overrides:webrtc_component",
     "//third_party/widevine/cdm:buildflags",
