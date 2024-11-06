@@ -1,0 +1,51 @@
+// ad-tech to first party
+[Exposed=(Window,Worker), SecureContext]
+dictionary BudgetRequestOptions {
+    // REQUIRED.
+    required double min_usable_budget;
+
+    // REQUIRED.
+    required double desired_budget;
+};
+
+[Exposed=(Window,Worker), SecureContext]
+dictionary BudgetDelegatorResponse {
+    // The assigned (encrypted) budget
+    required DOMString encrypted_epsilon;
+};
+
+// main conversion options interface that ad-tech uses to request reports
+[Exposed=(Window,Worker), SecureContext]
+dictionary PrivateAttributionConversionOptions {
+    required DOMString aggregator;
+
+    // A map where the keys are the names of different first parties, and the values are
+    // the encrypted epsilon values that those first parties have delegated to this ad-tech.
+    required FrozenMap<DOMString, DOMString> delegated_encrypted_epsilons;
+    required unsigned long histogramSize;
+    
+    sequence<DOMString> impressionSites = [];
+    sequence<DOMString> intermediarySites = [];
+    sequence<DOMString> conversionSites = [];
+};
+
+enum PrivateAttributionLogic {
+    "last-touch"
+    // or whatever logic would be needed
+};
+
+// API interface
+[Exposed=(Window,Worker), SecureContext]
+interface PrivateAttribution {
+    // Budget delegation API - returns encrypted budget
+    [CallWith=ExecutionContext] 
+    Promise<BudgetDelegatorResponse> getDelegatedBudget(BudgetRequestOptions options);
+
+    // Conversion measurement API
+    [CallWith=ExecutionContext] 
+    Promise<void> measureConversion(PrivateAttributionConversionOptions options);
+};
+
+partial interface Navigator {
+    [SecureContext] readonly attribute PrivateAttribution privateAttribution;
+};
