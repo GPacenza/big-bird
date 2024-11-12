@@ -2,18 +2,18 @@
 
 namespace blink {
 
-AdTechBudgetConfig::AdTechBudgetConfig()
-    : allocated_budget_(0.0) {}
+AdTechBudgetConfig::AdTechBudgetConfig() :
+     allocated_budget_(0.0) {}
 
 FirstPartyBudgetAllocationOptions::FirstPartyBudgetAllocationOptions() {}
 
-API2ReportRequest::API2ReportRequest()
-    : minimum_budget_(0.0)
+API2ReportRequest::API2ReportRequest() :
+      minimum_budget_(0.0)
     , desired_budget_(0.0)
     , histogram_size_(0) {}
 
 
-API2ReportResponse::API2ReportResponse()
-    : is_sufficient_(false) {}
+API2ReportResponse::API2ReportResponse() :
+     is_sufficient_(false) {}
 
 }  

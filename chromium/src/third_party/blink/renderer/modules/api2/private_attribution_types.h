@@ -62,6 +62,12 @@ class API2ReportRequest {
   void set_impression_sites(const std::vector<std::string>& sites) {
     impression_sites_ = sites;
   }
+  const std::vector<std::string>& intermediary_sites() const {
+    return intermediary_sites_;
+  }
+  void set_intermediary_sites(const std::vector<std::string>& sites) {
+    intermediary_sites_ = sites;
+  }
   const std::vector<std::string>& conversion_sites() const {
     return conversion_sites_;
   }
