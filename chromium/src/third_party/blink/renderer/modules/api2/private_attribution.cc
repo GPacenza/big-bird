@@ -1,5 +1,3 @@
-// third_party/blink/renderer/modules/api2/private_attribution.cc
-
 #include "third_party/blink/renderer/modules/api2/private_attribution.h"
 #include "third_party/blink/renderer/modules/api2/private_attribution_types.h"
 #include <string>
@@ -10,22 +8,30 @@ PrivateAttribution::PrivateAttribution() {}
 
 PrivateAttribution::~PrivateAttribution() {}
 
-void PrivateAttribution::GetDelegatedBudget(const BudgetRequestOptions& options) {
-    if (options.min_usable_budget() < 0 || 
-        options.desired_budget() < options.min_usable_budget()) {
-        return;
-    }
-
-    BudgetDelegatorResponse response;
-    //response.set_encrypted_epsilon();
+void PrivateAttribution::ConfigureAdTechBudgets(
+    const FirstPartyBudgetAllocationOptions& options) {
+    // TODO: 
+    // Validate the first party's origin
+    // Store budget transfers for each ad-tech
+    // Implement budget management logic
 }
 
-void PrivateAttribution::MeasureConversion(
-    const PrivateAttributionConversionOptions& options) {
-    if (options.histogram_size() == 0) {
+void PrivateAttribution::RequestAPI2Report(
+    const API2ReportRequest& options) {
+    if (options.minimum_budget() < 0 || 
+        options.desired_budget() < options.minimum_budget() ||
+        options.histogram_size() == 0) {
         return;
     }
-    // TODO: Implement conversion measurement
+
+    // TODO: 
+    // Check if ad-tech has tranfer from first party
+    // Validate available budget
+    // Generate report with awarded budget
+    // Update remaining budgets
+    
+    API2ReportResponse response;
+    // TODO: Set encrypted epsilon and sufficient flag based on awarded budget
 }
 
 } // namespace blink

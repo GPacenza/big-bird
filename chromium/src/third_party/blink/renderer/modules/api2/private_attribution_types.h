@@ -1,5 +1,3 @@
-// third_party/blink/renderer/modules/api2/private_attribution_types.h
-
 #ifndef THIRD_PARTY_BLINK_RENDERER_MODULES_API2_PRIVATE_ATTRIBUTION_TYPES_H_
 #define THIRD_PARTY_BLINK_RENDERER_MODULES_API2_PRIVATE_ATTRIBUTION_TYPES_H_
 
@@ -7,48 +5,53 @@
 #include <vector>
 #include <map>
 
+// Ad-tech origin? 
+
 namespace blink {
 
-class BudgetRequestOptions {
+class AdTechBudgetConfig {
  public:
-  BudgetRequestOptions();
+  AdTechBudgetConfig();
   
-  double min_usable_budget() const { return min_usable_budget_; }
-  void set_min_usable_budget(double value) { min_usable_budget_ = value; }
+  const std::string& ad_tech_origin() const { return ad_tech_origin_; }
+  void set_ad_tech_origin(const std::string& value) { ad_tech_origin_ = value; }
   
-  double desired_budget() const { return desired_budget_; }
-  void set_desired_budget(double value) { desired_budget_ = value; }
+  double allocated_budget() const { return allocated_budget_; }
+  void set_allocated_budget(double value) { allocated_budget_ = value; }
 
  private:
-  double min_usable_budget_;
-  double desired_budget_;
+  std::string ad_tech_origin_;
+  double allocated_budget_;
 };
 
-class BudgetDelegatorResponse {
+class FirstPartyBudgetAllocationOptions {
  public:
-  BudgetDelegatorResponse();
+  FirstPartyBudgetAllocationOptions();
   
-  const std::string& encrypted_epsilon() const { return encrypted_epsilon_; }
-  //void set_encrypted_epsilon() const { encrypted_epsilon_ = "some value"; }
-
- private:
-  std::string encrypted_epsilon_;
-};
-
-class PrivateAttributionConversionOptions {
- public:
-  PrivateAttributionConversionOptions();
+  const std::vector<AdTechBudgetConfig>& ad_tech_budgets() const { 
+    return ad_tech_budgets_; 
+  }
+  void set_ad_tech_budgets(const std::vector<AdTechBudgetConfig>& value) {
+    ad_tech_budgets_ = value;
+  }
   
   const std::string& aggregator() const { return aggregator_; }
   void set_aggregator(const std::string& value) { aggregator_ = value; }
+
+ private:
+  std::vector<AdTechBudgetConfig> ad_tech_budgets_;
+  std::string aggregator_;
+};
+
+class API2ReportRequest {
+ public:
+  API2ReportRequest();
   
-  const std::map<std::string, std::string>& delegated_encrypted_epsilons() const {
-    return delegated_encrypted_epsilons_;
-  }
-  void set_delegated_encrypted_epsilons(
-      const std::map<std::string, std::string>& value) {
-    delegated_encrypted_epsilons_ = value;
-  }
+  double minimum_budget() const { return minimum_budget_; }
+  void set_minimum_budget(double value) { minimum_budget_ = value; }
+  
+  double desired_budget() const { return desired_budget_; }
+  void set_desired_budget(double value) { desired_budget_ = value; }
   
   unsigned long histogram_size() const { return histogram_size_; }
   void set_histogram_size(unsigned long value) { histogram_size_ = value; }
@@ -59,14 +62,6 @@ class PrivateAttributionConversionOptions {
   void set_impression_sites(const std::vector<std::string>& sites) {
     impression_sites_ = sites;
   }
-  
-  const std::vector<std::string>& intermediary_sites() const {
-    return intermediary_sites_;
-  }
-  void set_intermediary_sites(const std::vector<std::string>& sites) {
-    intermediary_sites_ = sites;
-  }
-  
   const std::vector<std::string>& conversion_sites() const {
     return conversion_sites_;
   }
@@ -75,18 +70,28 @@ class PrivateAttributionConversionOptions {
   }
 
  private:
-  std::string aggregator_;
-  std::map<std::string, std::string> delegated_encrypted_epsilons_;
+  double minimum_budget_;
+  double desired_budget_;
   unsigned long histogram_size_;
   std::vector<std::string> impression_sites_;
   std::vector<std::string> intermediary_sites_;
   std::vector<std::string> conversion_sites_;
 };
 
-enum class PrivateAttributionLogic {
-  kLastTouch
+class API2ReportResponse {
+ public:
+  API2ReportResponse();
+  
+  const std::string& encrypted_epsilon() const { return encrypted_epsilon_; }
+  void set_encrypted_epsilon(const std::string& value) { encrypted_epsilon_ = value; }
+  bool is_sufficient() const { return is_sufficient_; }
+  void set_is_sufficient(bool value) { is_sufficient_ = value; }
+
+ private:
+  std::string encrypted_epsilon_;
+  bool is_sufficient_;
 };
 
-}  
+} 
 
-#endif  
+#endif 

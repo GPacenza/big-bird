@@ -1,5 +1,3 @@
-
-
 #ifndef THIRD_PARTY_BLINK_RENDERER_MODULES_API2_PRIVATE_ATTRIBUTION_H_
 #define THIRD_PARTY_BLINK_RENDERER_MODULES_API2_PRIVATE_ATTRIBUTION_H_
 
@@ -20,6 +18,6 @@ class PrivateAttribution {
   virtual void MeasureConversion(const PrivateAttributionConversionOptions& options);
 };
 
-}  // namespace blink
+}  
 
-#endif  // THIRD_PARTY_BLINK_RENDERER_MODULES_API2_PRIVATE_ATTRIBUTION_H_
+#endif 
