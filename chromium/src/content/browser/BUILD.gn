@@ -275,6 +275,7 @@ source_set("browser") {
     "//third_party/icu",
     "//third_party/inspector_protocol:crdtp",
     "//third_party/libyuv",
+    "//third_party/pdslib:event_storage_ffi",
     "//third_party/re2",
     "//third_party/snappy",
     "//third_party/sqlite",

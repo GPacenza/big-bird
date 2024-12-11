@@ -22,3 +22,16 @@ rust_static_library("pds_lib_ffi") {
     cxx_bindings = [ "//third_party/pdslib/src/lib.rs" ]
     deps = []
   }
+
+  rust_static_library("event_storage_ffi") {
+    allow_unsafe = true  # Needed for FFI that underpins the `cxx` crate.
+    crate_root = "//third_party/pdslib/src/events/simple_events.rs"
+    sources = [
+      "//third_party/pdslib/src/events/simple_events.rs",
+      "//third_party/pdslib/src/events/traits.rs",
+      "//third_party/pdslib/src/events/mod.rs",
+    ]
+    cxx_bindings = [ "//third_party/pdslib/src/events/simple_events.rs" ]
+    deps = []
+  }
+

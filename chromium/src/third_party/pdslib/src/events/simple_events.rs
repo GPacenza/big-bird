@@ -57,6 +57,28 @@ impl EventStorage for SimpleEventStorage {
     }
 }
 
+pub struct EvenSimplerEvent {
+    epoch_id: usize
+}
+
+impl EvenSimplerEvent {
+    pub fn get_epoch_id(&self) -> usize {
+        self.epoch_id
+    }
+}
+
+pub struct EvenSimplerEventStorage { }
+
+impl EvenSimplerEventStorage {
+    pub fn add_event(
+        &mut self,
+        event: &EvenSimplerEvent,
+    ) -> usize {
+        event.epoch_id
+    }
+
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -69,5 +91,14 @@ mod tests {
             value: 3,
         };
         assert_eq!(event.id, 1);
+    }
+}
+
+#[cxx::bridge]
+mod ffi {
+    extern "Rust" {
+        type EvenSimplerEventStorage;
+        type EvenSimplerEvent;
+        fn add_event(self: &mut EvenSimplerEventStorage, event: &EvenSimplerEvent) -> usize;
     }
 }
