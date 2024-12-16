@@ -1,0 +1,15 @@
+import("//third_party/blink/renderer/modules/modules.gni")
+
+blink_modules_sources("api2") {
+  sources = [
+    "private_attribution.cc",
+    "private_attribution.h",
+    "private_attribution_types.cc",
+    "private_attribution_types.h",
+  ]
+
+  deps = [
+    "//third_party/blink/renderer/core", 
+    "//third_party/blink/renderer/platform",
+  ]
+}

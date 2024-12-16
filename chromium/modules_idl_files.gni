@@ -1,0 +1,7 @@
+modules_idl_files = [
+  "api2/private_attribution.idl",
+]
+
+modules_dependency_idl_files = []
+modules_core_global_constructors_generated_h = []
+modules_core_global_constructors_generated_cpp = []

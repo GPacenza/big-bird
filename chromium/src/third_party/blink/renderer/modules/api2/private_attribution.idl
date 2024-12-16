@@ -1,0 +1,47 @@
+// First-party specifies how its budget will be tranferred
+[Exposed=(Window,Worker), SecureContext]
+dictionary AdTechBudgetConfig {
+    required DOMString adTechOrigin;
+    required double allocatedBudget;
+};
+
+[Exposed=(Window,Worker), SecureContext]
+dictionary FirstPartyBudgetAllocationOptions {
+    required sequence<AdTechBudgetConfig> adTechBudgets;
+    required DOMString aggregator;
+};
+
+// Ad-tech requestσ a report
+[Exposed=(Window,Worker), SecureContext]
+dictionary API2ReportRequest {
+    required double minimumBudget;
+    required double desiredBudget;
+    
+    // Metadata 
+    required unsigned long histogramSize;
+    sequence<DOMString> impressionSites = [];
+    sequence<DOMString> intermediarySites = [];
+    sequence<DOMString> conversionSites = [];
+};
+
+[Exposed=(Window,Worker), SecureContext]
+dictionary API2ReportResponse {
+    // Encrypted awarded budget for this specific report
+    required DOMString encryptedEpsilon;
+    required boolean isSufficient; // True iff encryptedEpsilon>=minimumBudget
+};
+
+// API interface
+[Exposed=(Window,Worker), SecureContext]
+interface PrivateAttribution {
+    // First party configures budget allocation
+    [CallWith=ExecutionContext] 
+    Promise<void> configureAdTechBudgets(FirstPartyBudgetAllocationOptions options);
+    // Ad-tech requests report with desired budget
+    [CallWith=ExecutionContext] 
+    Promise<API2ReportResponse> requestAPI2Report(API2ReportRequest options);
+};
+
+partial interface Navigator {
+    [SecureContext] readonly attribute PrivateAttribution privateAttribution;
+};
